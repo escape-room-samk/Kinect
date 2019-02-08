@@ -1,0 +1,17 @@
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\bin\AnyCPU\Debug\BodyBasics-WPF.exe.config
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\bin\AnyCPU\Debug\BodyBasics-WPF.exe
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\bin\AnyCPU\Debug\BodyBasics-WPF.pdb
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\bin\AnyCPU\Debug\Microsoft.Kinect.dll
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\bin\AnyCPU\Debug\Microsoft.Kinect.xml
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\obj\Debug\BodyBasics-WPF.csprojAssemblyReference.cache
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\obj\Debug\MainWindow.baml
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\obj\Debug\MainWindow.g.cs
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\obj\Debug\App.g.cs
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\obj\Debug\BodyBasics-WPF_MarkupCompile.cache
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\obj\Debug\BodyBasics-WPF.g.resources
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\obj\Debug\Microsoft.Samples.Kinect.BodyBasics.Properties.Resources.resources
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\obj\Debug\BodyBasics-WPF.csproj.GenerateResource.cache
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\obj\Debug\BodyBasics-WPF.csproj.CoreCompileInputs.cache
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\obj\Debug\BodyBasics-WPF.csproj.CopyComplete
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\obj\Debug\BodyBasics-WPF.exe
+C:\Users\vdbco\OneDrive\Documents\BodyBasics-WPF\obj\Debug\BodyBasics-WPF.pdb
