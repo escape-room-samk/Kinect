@@ -17,11 +17,15 @@ namespace Microsoft.Samples.Kinect.BodyBasics
     using System.Windows.Media.Imaging;
     using Microsoft.Kinect;
 
+
+   
     /// <summary>
     /// Interaction logic for MainWindow
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+
+        int Challenge=0;
         /// <summary>
         /// Radius of drawn hand circles
         /// </summary>
@@ -357,11 +361,10 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                             }
 
                             this.DrawBody(joints, jointPoints, dc, drawPen);
-
-                            this.PositionHandLeft(jointPoints[JointType.HandLeft]);
+                            
 
                             this.HumanPosition(jointPoints[JointType.HandLeft], jointPoints[JointType.HandRight], jointPoints[JointType.ShoulderLeft], jointPoints[JointType.ShoulderRight]);
-
+                            this.Challenges(jointPoints[JointType.HandLeft], jointPoints[JointType.HandRight], jointPoints[JointType.ShoulderLeft], jointPoints[JointType.ShoulderRight], jointPoints[JointType.KneeLeft], jointPoints[JointType.KneeRight], jointPoints[JointType.HipRight]);
                             this.DrawHand(body.HandLeftState, jointPoints[JointType.HandLeft], dc);
                             this.DrawHand(body.HandRightState, jointPoints[JointType.HandRight], dc);
                         }
@@ -442,12 +445,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             drawingContext.DrawLine(drawPen, jointPoints[jointType0], jointPoints[jointType1]);
         }
 
-        //determing the position of the left hand
-        private void PositionHandLeft(Point handposition)
-        {
-            tbxInfo.Text = "X-position of the hand: " + Convert.ToString(handposition.X) + "Y-position of the hand: " + Convert.ToString(handposition.Y);
-        }
-
+        //Looking if the right or left hand is raised or not
         private void HumanPosition(Point HandLeftPosition, Point HandRightPosition, Point ShoulderLeftPosition, Point ShoulderRightPosition)
         {
             if(HandLeftPosition.Y < ShoulderLeftPosition.Y)
@@ -467,6 +465,41 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             {
                 tbxrighthand.Text = "right hand is lowered";
             }
+        }
+
+        private void Challenges(Point HandLeftPosition, Point HandRightPosition, Point ShoulderLeftPosition, Point ShoulderRightPosition, Point KneeRight, Point KneeLeft, Point HipRight)
+        {
+            
+            if(Challenge == 0)
+            {
+                tbxChallenge.Text = "Challenge 1/5 \nLift your right hand";
+                if (HandRightPosition.Y < ShoulderRightPosition.Y)
+                {
+                    tbxChallenge.Text = "Challenge 1 Completed \nChallenge 2/5\nLift your left hand and lower your right hand ";
+                    Challenge = 1;
+                }
+            }
+            if (Challenge == 1)
+            {
+                tbxChallenge.Text = "Challenge 1 Completed \nChallenge 2/5\nLift your left hand and lower your right hand ";
+                if (HandRightPosition.Y > ShoulderRightPosition.Y && HandLeftPosition.Y < ShoulderLeftPosition.Y)
+                {
+                    tbxChallenge.Text = "Challenge 2 Completed \nChallenge 2/5\nRaise both of your hands \nand bend your knees ";
+                    Challenge = 2;
+                }
+            }
+            if (Challenge == 2)
+            {
+                tbxChallenge.Text = "Challenge 2 Completed \nChallenge 3/5\nRaise both of your hands \nand bend your knees ";
+                if (HandRightPosition.Y < ShoulderRightPosition.Y && HandLeftPosition.Y < ShoulderLeftPosition.Y && KneeLeft.Y < HipRight.Y && KneeRight.Y < HipRight.Y)
+                {
+                    tbxChallenge.Text = "Challenge 3 Completed \nChallenge 2/5\nLift your left hand and lower your right hand ";
+                    Challenge = 3;
+                }
+            }
+
+
+
         }
 
         /// <summary>
