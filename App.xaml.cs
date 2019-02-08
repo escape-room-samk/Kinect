@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.BodyBasics
+namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
 {
     using System;
     using System.Windows;

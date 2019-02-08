@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.BodyBasics.Properties {
+namespace Microsoft.Samples.Kinect.DiscreteGestureBasics.Properties {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace Microsoft.Samples.Kinect.BodyBasics.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.Samples.Kinect.BodyBasics.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.Samples.Kinect.DiscreteGestureBasics.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,18 @@ namespace Microsoft.Samples.Kinect.BodyBasics.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not Tracked.
+        /// </summary>
+        public static string Body_NotTracked {
+            get {
+                return ResourceManager.GetString("Body_NotTracked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to write screenshot to {0}.
         /// </summary>
-        internal static string FailedScreenshotStatusTextFormat {
+        public static string FailedScreenshotStatusTextFormat {
             get {
                 return ResourceManager.GetString("FailedScreenshotStatusTextFormat", resourceCulture);
             }
@@ -72,7 +81,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No ready Kinect found!.
         /// </summary>
-        internal static string NoSensorStatusText {
+        public static string NoSensorStatusText {
             get {
                 return ResourceManager.GetString("NoSensorStatusText", resourceCulture);
             }
@@ -81,7 +90,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Running.
         /// </summary>
-        internal static string RunningStatusText {
+        public static string RunningStatusText {
             get {
                 return ResourceManager.GetString("RunningStatusText", resourceCulture);
             }
@@ -90,7 +99,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kinect not available!.
         /// </summary>
-        internal static string SensorNotAvailableStatusText {
+        public static string SensorNotAvailableStatusText {
             get {
                 return ResourceManager.GetString("SensorNotAvailableStatusText", resourceCulture);
             }
