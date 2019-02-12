@@ -481,19 +481,33 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             }
             if (Challenge == 1)
             {
-                tbxChallenge.Text = "Challenge 1 Completed \nChallenge 2/5\nLift your left hand and lower your right hand ";
                 if (HandRightPosition.Y > ShoulderRightPosition.Y && HandLeftPosition.Y < ShoulderLeftPosition.Y)
                 {
-                    tbxChallenge.Text = "Challenge 2 Completed \nChallenge 2/5\nRaise both of your hands \nand bend your knees ";
+                    tbxChallenge.Text = "Challenge 2 Completed \nChallenge 3/5\nRaise both of your hands \nand bend your knees ";
                     Challenge = 2;
                 }
             }
             if (Challenge == 2)
             {
-                tbxChallenge.Text = "Challenge 2 Completed \nChallenge 3/5\nRaise both of your hands \nand bend your knees ";
                 if (HandRightPosition.Y < ShoulderRightPosition.Y && HandLeftPosition.Y < ShoulderLeftPosition.Y && KneeLeft.Y < HipRight.Y && KneeRight.Y < HipRight.Y)
                 {
-                    tbxChallenge.Text = "Challenge 3 Completed \nChallenge 2/5\nLift your left hand and lower your right hand ";
+                    tbxChallenge.Text = "Challenge 3 Completed \nChallenge 4/5\nLift your left hand and lower your right hand ";
+                    Challenge = 3;
+                }
+            }
+            if (Challenge == 3)
+            {
+                if (HandRightPosition.Y < ShoulderRightPosition.Y && HandLeftPosition.Y < ShoulderLeftPosition.Y && KneeLeft.Y < HipRight.Y && KneeRight.Y < HipRight.Y)
+                {
+                    tbxChallenge.Text = "Challenge 4 Completed \nChallenge 5/5\nMake the letter 'T' with your body";
+                    Challenge = 3;
+                }
+            }
+            if (Challenge == 4)
+            {
+                if (HandRightPosition.Y < ShoulderRightPosition.Y && HandLeftPosition.Y < ShoulderLeftPosition.Y && KneeLeft.Y < HipRight.Y && KneeRight.Y < HipRight.Y)
+                {
+                    tbxChallenge.Text = "Challenge 5 Completed \nChallenge 5/5\nAll Challenges completed";
                     Challenge = 3;
                 }
             }
