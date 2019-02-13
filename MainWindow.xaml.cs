@@ -509,7 +509,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             EF = Math.Sqrt(Math.Pow(EFXValue, 2) + Math.Pow(EFYValue, 2));
             DF = Math.Sqrt(Math.Pow(DFXValue, 2) + Math.Pow(DFYValue, 2));
 
-            if (AB + BC < AC+4 && AB+BC > AC - 4)
+            if (AB + BC < AC + 4 && AB + BC > AC - 4)
             {
                 if ((HLPX < SLPX + 30 && HLPX > SLPX - 30))
                 {
@@ -570,29 +570,32 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                                     {
                                         //left arm pointing right and bit up 1:30h clock
                                         LeftArmPos = 1;
-
                                         tbxlefthand.Text = "1";
                                     }
                                     else
                                     {
-                                        //left arm pointing right and bit down 4:30h clock
-                                        LeftArmPos = 4;
-
-                                        tbxlefthand.Text = "4";
+                                        if (HLPY > SLPY && HLPX > SLPX)
+                                        {
+                                            //left arm pointing right and bit down 4:30h clock
+                                            LeftArmPos = 4;
+                                            tbxlefthand.Text = "4";
+                                        }
+                                        else
+                                        {
+                                            LeftArmPos = 0;
+                                            tbxlefthand.Text = "0";
+                                        }
                                     }
                                 }
                             }
                         }
-                        else
-                        {
-                            //different position not defined
-                            LeftArmPos = 0;
-                            tbxlefthand.Text = "0";
-                        }
+
                     }
                 }
             }
             else
+                tbxlefthand.Text = "left arm is NOT straight";
+
 
 
             if (DE + EF < DF + 4 && DE + EF > DF - 4)
@@ -659,22 +662,26 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                                     }
                                     else
                                     {
-                                        //right arm pointing right and a bit down 4:30h clock
-                                        RightArmPos = 4;
-                                        tbxrighthand.Text = "4";
+                                        if (HRPY > SLPY && HRPX > SRPX)
+                                        {
+                                            //right arm pointing right and a bit down 4:30h clock
+                                            RightArmPos = 4;
+                                            tbxrighthand.Text = "4";
+                                        }
+                                        else
+                                        {
+                                            RightArmPos = 0;
+                                            tbxrighthand.Text = "0";
+                                        }
                                     }
                                 }
                             }
                         }
-                        else
-                        {
-                            //different position not defined
-                            RightArmPos = 0;
-                            tbxrighthand.Text = "0";
-                        }
                     }
                 }
             }
+            else
+                tbxrighthand.Text = "right hand is NOT straight";
 
             
 
