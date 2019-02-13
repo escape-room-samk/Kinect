@@ -24,8 +24,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-
-        int Challenge=0;
+        
         /// <summary>
         /// Radius of drawn hand circles
         /// </summary>
@@ -447,7 +446,6 @@ namespace Microsoft.Samples.Kinect.BodyBasics
 
         private void Alfabet(Point HandLeftPosition, Point HandRightPosition, Point ShoulderLeftPosition, Point ShoulderRightPosition, Point ElbowLeftPosition, Point ElbowRightPosition)
         {
-            bool straightLine = false;
             int LeftArmPos = 0;
             int RightArmPos = 0;
             string Letter = "Def";
