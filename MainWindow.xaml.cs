@@ -363,7 +363,6 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                             this.DrawBody(joints, jointPoints, dc, drawPen);
                             
 
-                            this.HumanPosition(jointPoints[JointType.HandLeft], jointPoints[JointType.HandRight], jointPoints[JointType.ShoulderLeft], jointPoints[JointType.ShoulderRight]);
                             this.Alfabet(jointPoints[JointType.HandLeft], jointPoints[JointType.HandRight], jointPoints[JointType.ShoulderLeft], jointPoints[JointType.ShoulderRight],jointPoints[JointType.ElbowLeft], jointPoints[JointType.ElbowRight]);
                             this.DrawHand(body.HandLeftState, jointPoints[JointType.HandLeft], dc);
                             this.DrawHand(body.HandRightState, jointPoints[JointType.HandRight], dc);
@@ -444,26 +443,13 @@ namespace Microsoft.Samples.Kinect.BodyBasics
 
             drawingContext.DrawLine(drawPen, jointPoints[jointType0], jointPoints[jointType1]);
         }
-
-        //Looking if the right or left hand is raised or not
-        private void HumanPosition(Point HandLeftPosition, Point HandRightPosition, Point ShoulderLeftPosition, Point ShoulderRightPosition)
-        {
-           
-
-            if (HandRightPosition.Y < ShoulderRightPosition.Y)
-            {
-                tbxrighthand.Text = "right hand is raised";
-            }
-            else
-            {
-                tbxrighthand.Text = "right hand is lowered";
-            }
-        }
+        
 
         private void Alfabet(Point HandLeftPosition, Point HandRightPosition, Point ShoulderLeftPosition, Point ShoulderRightPosition, Point ElbowLeftPosition, Point ElbowRightPosition)
         {
             bool straightLine = false;
             int LeftArmPos = 0;
+            int RightArmPos = 0;
             string Letter = "Def";
             double HLPX = HandLeftPosition.X;
             double HLPY = HandLeftPosition.Y;
@@ -490,17 +476,38 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             double BC;
             double AC;
 
-            ABXValue = Math.Abs(ELPX - HLPX);
-            ABYValue = Math.Abs(ELPY - HLPY);
-            BCXValue = Math.Abs(ELPX - SLPX);
-            BCYValue = Math.Abs(ELPY - SLPY);
-            ACXValue = Math.Abs(HLPX - SLPX);
-            ACYValue = Math.Abs(HLPY - SLPY);
+            double DEXValue;
+            double DEYValue;
+            double EFXValue;
+            double EFYValue;
+            double DFXValue;
+            double DFYValue;
+            double DE;
+            double EF;
+            double DF;
+
+            ABXValue = Math.Abs(ERPX - HRPX);
+            ABYValue = Math.Abs(ERPY - HRPY);
+            BCXValue = Math.Abs(ERPX - SRPX);
+            BCYValue = Math.Abs(ERPY - SRPY);
+            ACXValue = Math.Abs(HRPX - SRPX);
+            ACYValue = Math.Abs(HRPY - SRPY);
+
+            DEXValue = Math.Abs(ERPX - HRPX);
+            DEYValue = Math.Abs(ERPY - HRPY);
+            EFXValue = Math.Abs(ERPX - SRPX);
+            EFYValue = Math.Abs(ERPY - SRPY);
+            DFXValue = Math.Abs(HRPX - SRPX);
+            DFYValue = Math.Abs(HRPY - SRPY);
 
             //Calculations to see if the left arm is in a straight line
             AB = Math.Sqrt(Math.Pow(ABXValue, 2) + Math.Pow(ABYValue, 2));
             BC = Math.Sqrt(Math.Pow(BCXValue, 2) + Math.Pow(BCYValue, 2));
             AC = Math.Sqrt(Math.Pow(ACXValue, 2) + Math.Pow(ACYValue, 2));
+
+            DE = Math.Sqrt(Math.Pow(DEXValue, 2) + Math.Pow(DEYValue, 2));
+            EF = Math.Sqrt(Math.Pow(EFXValue, 2) + Math.Pow(EFYValue, 2));
+            DF = Math.Sqrt(Math.Pow(DFXValue, 2) + Math.Pow(DFYValue, 2));
 
             if (AB + BC < AC+4 && AB+BC > AC - 4)
             {
@@ -508,13 +515,15 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 {
                     if (HLPY < SLPY)
                     {
+                        //Left arm pointing up 12h clock
                         LeftArmPos = 12;
-                        tbxLetter.Text = "Left arm is pointing up";
+                        tbxlefthand.Text = "12";
                     }
                     else
                     {
+                        //Left arm point down 6h clock
                         LeftArmPos = 6;
-                        tbxLetter.Text = "Left arm is pointing down";
+                        tbxlefthand.Text = "6";
                     }
 
                 }
@@ -524,51 +533,253 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                     {
                         if (HLPX < SLPX)
                         {
+                            //Left arm pointing left 9h clock
                             LeftArmPos = 9;
-                            tbxLetter.Text = "Left arm is pointing left";
+                            tbxlefthand.Text = "9";
                         }
                         else
                         {
+                            //Left arm pointing right 3h clock
                             LeftArmPos = 3;
-                            tbxLetter.Text = "Left arm is pointing right";
+                            tbxlefthand.Text = "3";
                         }
 
                     }
                     else
                     {
-                        //Calculations to see if the arm is in a straight line
-
-
-
-                        if ((HLPX < SLPX + 30 && HLPX > SLPX - 30))
+                        if ((ACXValue < ACYValue + 20 && ACXValue > ACYValue - 20))
                         {
-                            if (HLPY < SLPY && ELPY < SLPY && HLPY < ELPY)
+                            if (HLPY < SLPY && HLPX < SLPX)
                             {
-                                LeftArmPos = 12;
-                                tbxLetter.Text = "Left arm is straight up";
+                                //left arm pointing left and bit up 10:30h clock
+                                LeftArmPos = 10;
+
+                                tbxlefthand.Text = "10";
                             }
                             else
                             {
-                                LeftArmPos = 6;
-                                tbxLetter.Text = "Left arm is straigt down";
+                                if (HLPY > SLPY && HLPX < SLPX)
+                                {
+                                    //left arm pointing left and bit down 7:30h clock
+                                    LeftArmPos = 7;
+                                    tbxlefthand.Text = "7";
+                                }
+                                else
+                                {
+                                    if (HLPY < SLPY && HLPX > SLPX)
+                                    {
+                                        //left arm pointing right and bit up 1:30h clock
+                                        LeftArmPos = 1;
+
+                                        tbxlefthand.Text = "1";
+                                    }
+                                    else
+                                    {
+                                        //left arm pointing right and bit down 4:30h clock
+                                        LeftArmPos = 4;
+
+                                        tbxlefthand.Text = "4";
+                                    }
+                                }
                             }
                         }
                         else
                         {
-                            tbxLetter.Text = "other position";
+                            //different position not defined
+                            LeftArmPos = 0;
+                            tbxlefthand.Text = "0";
                         }
                     }
                 }
             }
             else
-                tbxLetter.Text = "arm is NOT straight";
 
-            //X-axis can double has a marge of 30
+
+            if (DE + EF < DF + 4 && DE + EF > DF - 4)
+            {
+                if ((HRPX < SRPX + 30 && HRPX > SRPX - 30))
+                {
+                    if (HRPY < SRPY)
+                    {
+                        //Rigt arm pointing up 12h clock
+                        RightArmPos = 12;
+                        tbxrighthand.Text = "12";
+                    }
+                    else
+                    {
+                        //Right arm pointing down 6h clock
+                        RightArmPos = 6;
+                        tbxrighthand.Text = "6";
+                    }
+
+                }
+                else
+                {
+                    if ((HRPY < SRPY + 30 && HRPY > SRPY - 30))
+                    {
+                        if (HRPX < SRPX)
+                        {
+                            //Right arm pointing left 9h clock
+                            RightArmPos = 9;
+                            tbxrighthand.Text = "9";
+                        }
+                        else
+                        {
+                            //Rigt arm pointing right 3h clock
+                            RightArmPos = 3;
+                            tbxrighthand.Text = "3";
+                        }
+
+                    }
+                    else
+                    {
+                        if ((DFXValue < DFYValue + 20 && DFXValue > DFYValue - 20))
+                        {
+                            if (HRPY < SRPY && HRPX < SRPX)
+                            {
+                                //Rigt arm pointing left and a bit up 10:30h clock
+                                RightArmPos = 10;
+                                tbxrighthand.Text = "10";
+                            }
+                            else
+                            {
+                                if (HRPY > SRPY && HRPX < SRPX)
+                                {
+                                    //Right arm pointing left and a bit down 7:30h clock
+                                    RightArmPos = 7;
+                                    tbxrighthand.Text = "7";
+                                }
+                                else
+                                {
+                                    if (HRPY < SLPY && HRPX > SRPX)
+                                    {
+                                        //right arm pointing right and a bit up 2:30h clock
+                                        RightArmPos = 1;
+                                        tbxrighthand.Text = "1";
+                                    }
+                                    else
+                                    {
+                                        //right arm pointing right and a bit down 4:30h clock
+                                        RightArmPos = 4;
+                                        tbxrighthand.Text = "4";
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            //different position not defined
+                            RightArmPos = 0;
+                            tbxrighthand.Text = "0";
+                        }
+                    }
+                }
+            }
+
             
 
+            //Define all letters
+            if(RightArmPos == 4)
+            {
+                if (LeftArmPos == 6)
+                    Letter = "A";
+                if (LeftArmPos == 12)
+                    Letter = "K";
+                if (LeftArmPos == 10)
+                    Letter = "L";
+                if (LeftArmPos == 9)
+                    Letter = "M";
+                if (LeftArmPos == 7)
+                    Letter = "N";
+            }
+            else
+            {
+                if(RightArmPos == 3)
+                {
+                    if (LeftArmPos == 6)
+                        Letter = "B";
+                    if (LeftArmPos == 4)
+                        Letter = "H";
+                    if (LeftArmPos == 1)
+                        Letter = "O";
+                    if (LeftArmPos == 12)
+                        Letter = "P";
+                    if (LeftArmPos == 10)
+                        Letter = "Q";
+                    if (LeftArmPos == 9)
+                        Letter = "R";
+                    if (LeftArmPos == 7)
+                        Letter = "S";
+                }
+                else
+                {
+                    if (RightArmPos == 1)
+                    {
+                        if (LeftArmPos == 6)
+                            Letter = "C";
+                        if (LeftArmPos == 12)
+                            Letter = "T";
+                        if (LeftArmPos == 10)
+                            Letter = "U";
+                        if (LeftArmPos == 9)
+                            Letter = "Y";
+                        if (LeftArmPos == 7)
+                            Letter = "RESET";
+                    }
+                    else
+                    {
+                        if(RightArmPos == 12)
+                        {
+                            if (LeftArmPos == 6)
+                                Letter = "D";
+                            if (LeftArmPos == 4)
+                                Letter = "I";
+                            if (LeftArmPos == 9)
+                                Letter = "J";
+                            if (LeftArmPos == 7)
+                                Letter = "V";
+                        }
+                        else
+                        {
+                            if(RightArmPos == 6)
+                            {
+                                if (LeftArmPos == 10)
+                                    Letter = "E";
+                                if (LeftArmPos == 9)
+                                    Letter = "F";
+                                if (LeftArmPos == 7)
+                                    Letter = "G";
+                                if (LeftArmPos == 6)
+                                    Letter = "EOW SPACE";
+                            }
+                            else
+                            {
+                                if (RightArmPos == 10)
+                                {
+                                    if (LeftArmPos == 9)
+                                        Letter = "W";
+                                    if (LeftArmPos == 7)
+                                        Letter = "X";
+                                }
+                                else
+                                {
+                                    if (RightArmPos == 7)
+                                    {
+                                        if (LeftArmPos == 7)
+                                            Letter = "Z";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                    
 
-            //tbxLetter.Text = Letter;
-            
+
+            }
+
+            tbxLetter.Text = Letter;
+
         }
 
         /// <summary>

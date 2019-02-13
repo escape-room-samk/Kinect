@@ -34,7 +34,7 @@
     </Viewbox>
         <TextBox Grid.Row="1" Grid.Column="1" Name="tbxLetter" FontSize="28"></TextBox>
         <TextBox Grid.Row="2" Grid.Column="1" Name="tbxlefthand" FontSize="30"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="1" Name="tbxrighthand"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" Name="tbxrighthand" FontSize="30"></TextBox>
 
 
         <StatusBar Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Name="statusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}">
