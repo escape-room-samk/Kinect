@@ -32,8 +32,8 @@
     <Viewbox Grid.Row="1" Grid.RowSpan="3" HorizontalAlignment="Center">
       <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
     </Viewbox>
-        <TextBox Grid.Row="1" Grid.Column="1" Name="tbxChallenge" FontSize="45"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="1" Name="tbxlefthand"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="tbxLetter" FontSize="28"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" Name="tbxlefthand" FontSize="30"></TextBox>
         <TextBox Grid.Row="3" Grid.Column="1" Name="tbxrighthand"></TextBox>
 
 

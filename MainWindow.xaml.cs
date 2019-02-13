@@ -364,7 +364,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                             
 
                             this.HumanPosition(jointPoints[JointType.HandLeft], jointPoints[JointType.HandRight], jointPoints[JointType.ShoulderLeft], jointPoints[JointType.ShoulderRight]);
-                            this.Challenges(jointPoints[JointType.HandLeft], jointPoints[JointType.HandRight], jointPoints[JointType.ShoulderLeft], jointPoints[JointType.ShoulderRight], jointPoints[JointType.KneeLeft], jointPoints[JointType.KneeRight], jointPoints[JointType.HipRight]);
+                            this.Alfabet(jointPoints[JointType.HandLeft], jointPoints[JointType.HandRight], jointPoints[JointType.ShoulderLeft], jointPoints[JointType.ShoulderRight],jointPoints[JointType.ElbowLeft], jointPoints[JointType.ElbowRight]);
                             this.DrawHand(body.HandLeftState, jointPoints[JointType.HandLeft], dc);
                             this.DrawHand(body.HandRightState, jointPoints[JointType.HandRight], dc);
                         }
@@ -448,14 +448,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         //Looking if the right or left hand is raised or not
         private void HumanPosition(Point HandLeftPosition, Point HandRightPosition, Point ShoulderLeftPosition, Point ShoulderRightPosition)
         {
-            if(HandLeftPosition.Y < ShoulderLeftPosition.Y)
-            {
-                tbxlefthand.Text = "left hand is raised";
-            }
-            else
-            {
-                tbxlefthand.Text = "left hand is lowered";
-            }
+           
 
             if (HandRightPosition.Y < ShoulderRightPosition.Y)
             {
@@ -467,53 +460,115 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             }
         }
 
-        private void Challenges(Point HandLeftPosition, Point HandRightPosition, Point ShoulderLeftPosition, Point ShoulderRightPosition, Point KneeRight, Point KneeLeft, Point HipRight)
+        private void Alfabet(Point HandLeftPosition, Point HandRightPosition, Point ShoulderLeftPosition, Point ShoulderRightPosition, Point ElbowLeftPosition, Point ElbowRightPosition)
         {
+            bool straightLine = false;
+            int LeftArmPos = 0;
+            string Letter = "Def";
+            double HLPX = HandLeftPosition.X;
+            double HLPY = HandLeftPosition.Y;
+            double HRPX = HandRightPosition.X;
+            double HRPY = HandRightPosition.Y;
+
+            double SLPX = ShoulderLeftPosition.X;
+            double SLPY = ShoulderLeftPosition.Y;
+            double SRPX = ShoulderRightPosition.X;
+            double SRPY = ShoulderRightPosition.Y;
+
+            double ELPX = ElbowLeftPosition.X;
+            double ELPY = ElbowLeftPosition.Y;
+            double ERPX = ElbowRightPosition.X;
+            double ERPY = ElbowRightPosition.Y;
+
+            double ABXValue;
+            double ABYValue;
+            double BCXValue;
+            double BCYValue;
+            double ACXValue;
+            double ACYValue;
+            double AB;
+            double BC;
+            double AC;
+
+            ABXValue = Math.Abs(ELPX - HLPX);
+            ABYValue = Math.Abs(ELPY - HLPY);
+            BCXValue = Math.Abs(ELPX - SLPX);
+            BCYValue = Math.Abs(ELPY - SLPY);
+            ACXValue = Math.Abs(HLPX - SLPX);
+            ACYValue = Math.Abs(HLPY - SLPY);
+
+            //Calculations to see if the left arm is in a straight line
+            AB = Math.Sqrt(Math.Pow(ABXValue, 2) + Math.Pow(ABYValue, 2));
+            BC = Math.Sqrt(Math.Pow(BCXValue, 2) + Math.Pow(BCYValue, 2));
+            AC = Math.Sqrt(Math.Pow(ACXValue, 2) + Math.Pow(ACYValue, 2));
+
+            if (AB + BC < AC+4 && AB+BC > AC - 4)
+            {
+                if ((HLPX < SLPX + 30 && HLPX > SLPX - 30))
+                {
+                    if (HLPY < SLPY)
+                    {
+                        LeftArmPos = 12;
+                        tbxLetter.Text = "Left arm is pointing up";
+                    }
+                    else
+                    {
+                        LeftArmPos = 6;
+                        tbxLetter.Text = "Left arm is pointing down";
+                    }
+
+                }
+                else
+                {
+                    if ((HLPY < SLPY + 30 && HLPY > SLPY - 30))
+                    {
+                        if (HLPX < SLPX)
+                        {
+                            LeftArmPos = 9;
+                            tbxLetter.Text = "Left arm is pointing left";
+                        }
+                        else
+                        {
+                            LeftArmPos = 3;
+                            tbxLetter.Text = "Left arm is pointing right";
+                        }
+
+                    }
+                    else
+                    {
+                        //Calculations to see if the arm is in a straight line
+
+
+
+                        if ((HLPX < SLPX + 30 && HLPX > SLPX - 30))
+                        {
+                            if (HLPY < SLPY && ELPY < SLPY && HLPY < ELPY)
+                            {
+                                LeftArmPos = 12;
+                                tbxLetter.Text = "Left arm is straight up";
+                            }
+                            else
+                            {
+                                LeftArmPos = 6;
+                                tbxLetter.Text = "Left arm is straigt down";
+                            }
+                        }
+                        else
+                        {
+                            tbxLetter.Text = "other position";
+                        }
+                    }
+                }
+            }
+            else
+                tbxLetter.Text = "arm is NOT straight";
+
+            //X-axis can double has a marge of 30
             
-            if(Challenge == 0)
-            {
-                tbxChallenge.Text = "Challenge 1/5 \nLift your right hand";
-                if (HandRightPosition.Y < ShoulderRightPosition.Y)
-                {
-                    tbxChallenge.Text = "Challenge 1 Completed \nChallenge 2/5\nLift your left hand and lower your right hand ";
-                    Challenge = 1;
-                }
-            }
-            if (Challenge == 1)
-            {
-                if (HandRightPosition.Y > ShoulderRightPosition.Y && HandLeftPosition.Y < ShoulderLeftPosition.Y)
-                {
-                    tbxChallenge.Text = "Challenge 2 Completed \nChallenge 3/5\nRaise both of your hands \nand bend your knees ";
-                    Challenge = 2;
-                }
-            }
-            if (Challenge == 2)
-            {
-                if (HandRightPosition.Y < ShoulderRightPosition.Y && HandLeftPosition.Y < ShoulderLeftPosition.Y && KneeLeft.Y < HipRight.Y && KneeRight.Y < HipRight.Y)
-                {
-                    tbxChallenge.Text = "Challenge 3 Completed \nChallenge 4/5\nLift your left hand and lower your right hand ";
-                    Challenge = 3;
-                }
-            }
-            if (Challenge == 3)
-            {
-                if (HandRightPosition.Y < ShoulderRightPosition.Y && HandLeftPosition.Y < ShoulderLeftPosition.Y && KneeLeft.Y < HipRight.Y && KneeRight.Y < HipRight.Y)
-                {
-                    tbxChallenge.Text = "Challenge 4 Completed \nChallenge 5/5\nMake the letter 'T' with your body";
-                    Challenge = 3;
-                }
-            }
-            if (Challenge == 4)
-            {
-                if (HandRightPosition.Y < ShoulderRightPosition.Y && HandLeftPosition.Y < ShoulderLeftPosition.Y && KneeLeft.Y < HipRight.Y && KneeRight.Y < HipRight.Y)
-                {
-                    tbxChallenge.Text = "Challenge 5 Completed \nChallenge 5/5\nAll Challenges completed";
-                    Challenge = 3;
-                }
-            }
 
 
-
+            //tbxLetter.Text = Letter;
+            
         }
 
         /// <summary>
