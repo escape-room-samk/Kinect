@@ -16,6 +16,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using Microsoft.Kinect;
+    using System.Timers;
 
 
    
@@ -130,6 +131,9 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         /// </summary>
         private string statusText = null;
 
+        private static System.Timers.Timer timWord;
+        bool timePassed = false;
+
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
@@ -221,6 +225,9 @@ namespace Microsoft.Samples.Kinect.BodyBasics
 
             // initialize the components (controls) of the window
             this.InitializeComponent();
+
+            //Set timer
+            timWord = new System.Timers.Timer(3000);
         }
 
         /// <summary>
@@ -654,8 +661,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                     }
                 }
             }
-
-            tbxlefthand.Text = Convert.ToString(LeftArmPos);
+            
             tbxrighthand.Text = Convert.ToString(RightArmPos);
             
 
@@ -766,13 +772,43 @@ namespace Microsoft.Samples.Kinect.BodyBasics
 
         private void MakeWord(string Let)
         {
-            string word;
-            string LetterNow
+            bool LetterFailed = false;
+            string word = "";
+            string newWord;
+            string LetterNow = "";
             if (Let != "Def")
             {
+
+                //Set timer
+                timWord = new System.Timers.Timer(3000);
+                timWord.Elapsed += OnTimedEvent;
+                timWord.Enabled = true;
+                timWord.Start();
+                if(LetterNow != Let && timePassed == false)
+                {
+                    LetterFailed = true;
+                    timWord.Stop();
+                }
+                if (timePassed == true && LetterFailed == false)
+                {
+                    word = word + Let;
+                    if(Let == "cancel")
+                    {
+                        word = "";
+                    }
+                    timePassed = false;
+                    timWord.Stop();
+                }
                 LetterNow = Let;
+                tbxlefthand.Text = word;
             }
         }
+
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            timePassed = true;
+        }
+
         /// <summary>
         /// Draws a hand symbol if the hand is tracked: red circle = closed, green circle = opened; blue circle = lasso
         /// </summary>
