@@ -484,12 +484,12 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             double EF;
             double DF;
 
-            ABXValue = Math.Abs(ERPX - HRPX);
-            ABYValue = Math.Abs(ERPY - HRPY);
-            BCXValue = Math.Abs(ERPX - SRPX);
-            BCYValue = Math.Abs(ERPY - SRPY);
-            ACXValue = Math.Abs(HRPX - SRPX);
-            ACYValue = Math.Abs(HRPY - SRPY);
+            ABXValue = Math.Abs(ELPX - HLPX);
+            ABYValue = Math.Abs(ELPY - HLPY);
+            BCXValue = Math.Abs(ELPX - SLPX);
+            BCYValue = Math.Abs(ELPY - SLPY);
+            ACXValue = Math.Abs(HLPX - SLPX);
+            ACYValue = Math.Abs(HLPY - SLPY);
 
             DEXValue = Math.Abs(ERPX - HRPX);
             DEYValue = Math.Abs(ERPY - HRPY);
@@ -513,15 +513,13 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 {
                     if (HLPY < SLPY)
                     {
-                        //Left arm pointing up 12h clock
+                        //Rigt arm pointing up 12h clock
                         LeftArmPos = 12;
-                        tbxlefthand.Text = "12";
                     }
                     else
                     {
-                        //Left arm point down 6h clock
+                        //Right arm pointing down 6h clock
                         LeftArmPos = 6;
-                        tbxlefthand.Text = "6";
                     }
 
                 }
@@ -531,15 +529,13 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                     {
                         if (HLPX < SLPX)
                         {
-                            //Left arm pointing left 9h clock
+                            //Right arm pointing left 9h clock
                             LeftArmPos = 9;
-                            tbxlefthand.Text = "9";
                         }
                         else
                         {
-                            //Left arm pointing right 3h clock
+                            //Rigt arm pointing right 3h clock
                             LeftArmPos = 3;
-                            tbxlefthand.Text = "3";
                         }
 
                     }
@@ -549,52 +545,41 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                         {
                             if (HLPY < SLPY && HLPX < SLPX)
                             {
-                                //left arm pointing left and bit up 10:30h clock
+                                //Rigt arm pointing left and a bit up 10:30h clock
                                 LeftArmPos = 10;
-
-                                tbxlefthand.Text = "10";
                             }
                             else
                             {
                                 if (HLPY > SLPY && HLPX < SLPX)
                                 {
-                                    //left arm pointing left and bit down 7:30h clock
+                                    //Right arm pointing left and a bit down 7:30h clock
                                     LeftArmPos = 7;
-                                    tbxlefthand.Text = "7";
                                 }
                                 else
                                 {
                                     if (HLPY < SLPY && HLPX > SLPX)
                                     {
-                                        //left arm pointing right and bit up 1:30h clock
+                                        //right arm pointing right and a bit up 2:30h clock
                                         LeftArmPos = 1;
-                                        tbxlefthand.Text = "1";
                                     }
                                     else
                                     {
                                         if (HLPY > SLPY && HLPX > SLPX)
                                         {
-                                            //left arm pointing right and bit down 4:30h clock
+                                            //right arm pointing right and a bit down 4:30h clock
                                             LeftArmPos = 4;
-                                            tbxlefthand.Text = "4";
                                         }
                                         else
                                         {
                                             LeftArmPos = 0;
-                                            tbxlefthand.Text = "0";
                                         }
                                     }
                                 }
                             }
                         }
-
                     }
                 }
             }
-            else
-                tbxlefthand.Text = "left arm is NOT straight";
-
-
 
             if (DE + EF < DF + 4 && DE + EF > DF - 4)
             {
@@ -604,13 +589,11 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                     {
                         //Rigt arm pointing up 12h clock
                         RightArmPos = 12;
-                        tbxrighthand.Text = "12";
                     }
                     else
                     {
                         //Right arm pointing down 6h clock
                         RightArmPos = 6;
-                        tbxrighthand.Text = "6";
                     }
 
                 }
@@ -622,13 +605,11 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                         {
                             //Right arm pointing left 9h clock
                             RightArmPos = 9;
-                            tbxrighthand.Text = "9";
                         }
                         else
                         {
                             //Rigt arm pointing right 3h clock
                             RightArmPos = 3;
-                            tbxrighthand.Text = "3";
                         }
 
                     }
@@ -640,7 +621,6 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                             {
                                 //Rigt arm pointing left and a bit up 10:30h clock
                                 RightArmPos = 10;
-                                tbxrighthand.Text = "10";
                             }
                             else
                             {
@@ -648,28 +628,24 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                                 {
                                     //Right arm pointing left and a bit down 7:30h clock
                                     RightArmPos = 7;
-                                    tbxrighthand.Text = "7";
                                 }
                                 else
                                 {
-                                    if (HRPY < SLPY && HRPX > SRPX)
+                                    if (HRPY < SRPY && HRPX > SRPX)
                                     {
                                         //right arm pointing right and a bit up 2:30h clock
                                         RightArmPos = 1;
-                                        tbxrighthand.Text = "1";
                                     }
                                     else
                                     {
-                                        if (HRPY > SLPY && HRPX > SRPX)
+                                        if (HRPY > SRPY && HRPX > SRPX)
                                         {
                                             //right arm pointing right and a bit down 4:30h clock
                                             RightArmPos = 4;
-                                            tbxrighthand.Text = "4";
                                         }
                                         else
                                         {
                                             RightArmPos = 0;
-                                            tbxrighthand.Text = "0";
                                         }
                                     }
                                 }
@@ -678,9 +654,9 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                     }
                 }
             }
-            else
-                tbxrighthand.Text = "right hand is NOT straight";
 
+            tbxlefthand.Text = Convert.ToString(LeftArmPos);
+            tbxrighthand.Text = Convert.ToString(RightArmPos);
             
 
             //Define all letters
@@ -785,8 +761,18 @@ namespace Microsoft.Samples.Kinect.BodyBasics
 
             tbxLetter.Text = Letter;
 
+            MakeWord(Letter);
         }
 
+        private void MakeWord(string Let)
+        {
+            string word;
+            string LetterNow
+            if (Let != "Def")
+            {
+                LetterNow = Let;
+            }
+        }
         /// <summary>
         /// Draws a hand symbol if the hand is tracked: red circle = closed, green circle = opened; blue circle = lasso
         /// </summary>
