@@ -774,47 +774,55 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             MakeWord(Letter);
         }
 
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            timePassed++;
+            timePassed2 = true;
+        }
+
         private void MakeWord(string Let)
         {
             
-            timWord = new System.Timers.Timer(3000);
-            timWord.Elapsed += OnTimedEvent;
-            timWord.AutoReset = false;
+            
 
             if (Let != "Def")
             {
-                timWord.Enabled = true;
+                if(Let != LetterNow)
+                {
+                    timWord = new System.Timers.Timer(3000);
+                    timWord.Elapsed += OnTimedEvent;
+                    timWord.AutoReset = false;
+                    timWord.Interval = 3000;
+                    timWord.Start();
+                }
+                
 
-                if (LetterNow != Let && timePassed%100 != 0)
+                if (LetterNow != Let && timePassed2 == false)
                 {
                     LetterFailed = true;
                 }
                 
-                if (timePassed % 100 == 0)
-                {
-                    LetterFailed = false;
-                    tbxlefthand.Text = "true";
-                }
-                else
-                    tbxlefthand.Text = "false";
-                if (timePassed % 100 == 0 && LetterFailed == false)
+                if (timePassed2 == true && LetterFailed == false)
                 {
                     fullWord = word + Let;
                     word = fullWord;
-                    if(Let == "cancel")
+                    if(Let == "RESET")
                     {
                         word = "";
+                        fullWord = "";
                     }
                 }
+                timePassed2 = false;
                 LetterNow = Let;
                 LetterFailed = false;
                 tbxrighthand.Text = fullWord;
+                tbxlefthand.Text = Convert.ToString(timePassed2);
             }
-        }
-
-        private void OnTimedEvent(object sender, ElapsedEventArgs e)
-        {
-            timePassed++;
+            else
+            {
+                timWord.Stop();
+                timePassed2 = false;
+            }
         }
 
         /// <summary>
