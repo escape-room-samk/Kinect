@@ -52,6 +52,9 @@
     <Reference Include="Microsoft.Kinect">
       <HintPath>$(KINECTSDK20_DIR)Assemblies\Microsoft.Kinect.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=103.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\RestSharp.103.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -104,6 +107,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

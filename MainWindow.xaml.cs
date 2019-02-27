@@ -17,6 +17,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
     using System.Windows.Media.Imaging;
     using Microsoft.Kinect;
     using System.Timers;
+    using RestSharp;
 
 
    
@@ -139,11 +140,17 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         bool LetterFailed = false;
         bool timePassed2 = false;
 
+
+
+
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
         public MainWindow()
         {
+            //Add server
+           
+
             // one sensor is currently supported
             this.kinectSensor = KinectSensor.GetDefault();
 
@@ -817,6 +824,16 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 LetterFailed = false;
                 tbxrighthand.Text = fullWord;
                 tbxlefthand.Text = Convert.ToString(timePassed2);
+                if(fullWord.Length == 5)
+                {
+                    //connect to server
+                    var client = new RestClient("http://172.17.2.99:3000/api/motionSensor");
+                    var request = new RestRequest(Method.POST);
+                    //add to server
+                    request.AddParameter("undefined", "{\"devID\": \"ImageReader\",\"motionMessage\": \"1\"}", ParameterType.RequestBody);
+                    //reset full word
+                    fullWord = "";
+                }
             }
             else
             {
