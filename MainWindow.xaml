@@ -42,5 +42,6 @@
     </StatusBar>
 
         <TextBox Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Name="tbxInfo" VerticalAlignment="Bottom"></TextBox>
+ 
   </Grid>
 </Window>

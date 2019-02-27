@@ -132,7 +132,12 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         private string statusText = null;
 
         private static System.Timers.Timer timWord;
-        bool timePassed = false;
+        int timePassed = 1;
+        string fullWord = "";
+        string word = "";
+        string LetterNow = "";
+        bool LetterFailed = false;
+        bool timePassed2 = false;
 
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
@@ -662,7 +667,6 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 }
             }
             
-            tbxrighthand.Text = Convert.ToString(RightArmPos);
             
 
             //Define all letters
@@ -772,41 +776,45 @@ namespace Microsoft.Samples.Kinect.BodyBasics
 
         private void MakeWord(string Let)
         {
-            bool LetterFailed = false;
-            string word = "";
-            string newWord;
-            string LetterNow = "";
+            
+            timWord = new System.Timers.Timer(3000);
+            timWord.Elapsed += OnTimedEvent;
+            timWord.AutoReset = false;
+
             if (Let != "Def")
             {
-
-                //Set timer
-                timWord = new System.Timers.Timer(3000);
-                timWord.Elapsed += OnTimedEvent;
                 timWord.Enabled = true;
-                timWord.Start();
-                if(LetterNow != Let && timePassed == false)
+
+                if (LetterNow != Let && timePassed%100 != 0)
                 {
                     LetterFailed = true;
-                    timWord.Stop();
                 }
-                if (timePassed == true && LetterFailed == false)
+                
+                if (timePassed % 100 == 0)
                 {
-                    word = word + Let;
+                    LetterFailed = false;
+                    tbxlefthand.Text = "true";
+                }
+                else
+                    tbxlefthand.Text = "false";
+                if (timePassed % 100 == 0 && LetterFailed == false)
+                {
+                    fullWord = word + Let;
+                    word = fullWord;
                     if(Let == "cancel")
                     {
                         word = "";
                     }
-                    timePassed = false;
-                    timWord.Stop();
                 }
                 LetterNow = Let;
-                tbxlefthand.Text = word;
+                LetterFailed = false;
+                tbxrighthand.Text = fullWord;
             }
         }
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
-            timePassed = true;
+            timePassed++;
         }
 
         /// <summary>
