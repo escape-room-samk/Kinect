@@ -17,10 +17,12 @@ namespace Microsoft.Samples.Kinect.BodyBasics
     using System.Windows.Media.Imaging;
     using Microsoft.Kinect;
     using System.Timers;
-    using RestSharp;
+    using System.Net;
+    using System.Collections.Specialized;
+    using System.Text;
 
 
-   
+
     /// <summary>
     /// Interaction logic for MainWindow
     /// </summary>
@@ -826,12 +828,17 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 tbxlefthand.Text = Convert.ToString(timePassed2);
                 if(fullWord.Length == 5)
                 {
-                    //connect to server
-                    var client = new RestClient("http://172.17.2.99:3000/api/motionSensor");
-                    var request = new RestRequest(Method.POST);
-                    //add to server
-                    request.AddParameter("undefined", "{\"devID\": \"ImageReader\",\"motionMessage\": \"1\"}", ParameterType.RequestBody);
-                    //reset full word
+                    using (var client = new WebClient())
+                    {
+                        var values = new NameValueCollection();
+                        values["devID"] = "ImageReader";
+                        values["motionMessage"] = fullWord;
+
+                        var response = client.UploadValues("http://172.17.2.99:3000/api/motionSensor", values);
+
+                        var responseString = Encoding.Default.GetString(response);
+                        Debug.WriteLine(responseString);
+                    }
                     fullWord = "";
                 }
             }
