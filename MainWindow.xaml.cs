@@ -20,6 +20,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
     using System.Net;
     using System.Collections.Specialized;
     using System.Text;
+    using System.Threading;
 
 
 
@@ -528,7 +529,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             EF = Math.Sqrt(Math.Pow(EFXValue, 2) + Math.Pow(EFYValue, 2));
             DF = Math.Sqrt(Math.Pow(DFXValue, 2) + Math.Pow(DFYValue, 2));
 
-            if (AB + BC < AC + 4 && AB + BC > AC - 4)
+            if (AB + BC < AC + 5 && AB + BC > AC - 5)
             {
                 if ((HLPX < SLPX + 30 && HLPX > SLPX - 30))
                 {
@@ -602,7 +603,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 }
             }
 
-            if (DE + EF < DF + 4 && DE + EF > DF - 4)
+            if (DE + EF < DF + 5 && DE + EF > DF - 5)
             {
                 if ((HRPX < SRPX + 30 && HRPX > SRPX - 30))
                 {
@@ -730,6 +731,8 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                     {
                         if(RightArmPos == 12)
                         {
+                            if (LeftArmPos == 12)
+                                Letter = "send data";
                             if (LeftArmPos == 6)
                                 Letter = "D";
                             if (LeftArmPos == 4)
@@ -750,7 +753,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                                 if (LeftArmPos == 7)
                                     Letter = "G";
                                 if (LeftArmPos == 6)
-                                    Letter = "EOW SPACE";
+                                    Letter = " ";
                             }
                             else
                             {
@@ -791,21 +794,8 @@ namespace Microsoft.Samples.Kinect.BodyBasics
 
         private void MakeWord(string Let)
         {
-            
-            
-
             if (Let != "Def")
             {
-                if(Let != LetterNow)
-                {
-                    timWord = new System.Timers.Timer(3000);
-                    timWord.Elapsed += OnTimedEvent;
-                    timWord.AutoReset = false;
-                    timWord.Interval = 3000;
-                    timWord.Start();
-                }
-                
-
                 if (LetterNow != Let && timePassed2 == false)
                 {
                     LetterFailed = true;
@@ -813,12 +803,21 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 
                 if (timePassed2 == true && LetterFailed == false)
                 {
-                    fullWord = word + Let;
-                    word = fullWord;
-                    if(Let == "RESET")
+                    if (Let == "send data")
                     {
-                        word = "";
+                        sendWord(fullWord);
                         fullWord = "";
+                        word = "";
+                    }
+                    else
+                    {
+                        fullWord = word + Let;
+                        word = fullWord;
+                        if (Let == "RESET")
+                        {
+                            word = "";
+                            fullWord = "";
+                        }
                     }
                 }
                 timePassed2 = false;
@@ -826,29 +825,34 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 LetterFailed = false;
                 tbxrighthand.Text = fullWord;
                 tbxlefthand.Text = Convert.ToString(timePassed2);
-                if(fullWord.Length == 5)
-                {
-                    using (var client = new WebClient())
-                    {
-                        var values = new NameValueCollection();
-                        values["devID"] = "ImageReader";
-                        values["motionMessage"] = fullWord;
-
-                        var response = client.UploadValues("http://172.17.2.99:3000/api/motionSensor", values);
-
-                        var responseString = Encoding.Default.GetString(response);
-                        Debug.WriteLine(responseString);
-                    }
-                    fullWord = "";
-                }
+                
             }
             else
             {
                 timWord.Stop();
-                timePassed2 = false;
+                timWord = new System.Timers.Timer(3000);
+                timWord.Elapsed += OnTimedEvent;
+                timWord.AutoReset = false;
+                timWord.Interval = 3000;
+                timWord.Start();
             }
         }
 
+
+        private void sendWord(string word)
+        {
+            using (var client = new WebClient())
+            {
+                var values = new NameValueCollection();
+                values["devID"] = "ImageReader";
+                values["value"] = word;
+
+                var response = client.UploadValues("http://172.17.2.99:3000/api/motionSensor", values);
+
+                var responseString = Encoding.Default.GetString(response);
+                Debug.WriteLine(responseString);
+            }
+        }
         /// <summary>
         /// Draws a hand symbol if the hand is tracked: red circle = closed, green circle = opened; blue circle = lasso
         /// </summary>

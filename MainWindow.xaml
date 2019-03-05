@@ -10,7 +10,7 @@
     <SolidColorBrush x:Key="KinectPurpleBrush" Color="#ff52318f" />
     <SolidColorBrush x:Key="KinectBlueBrush" Color="#ff00BCF2" />
   </Window.Resources>
-  <Grid Margin="10 0 10 0">
+  <Grid Name="grid" Margin="10 0 10 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
