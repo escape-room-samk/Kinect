@@ -470,7 +470,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         {
             int LeftArmPos = 0;
             int RightArmPos = 0;
-            string Letter = "Def";
+            string Letter = "Not a letter";
             double HLPX = HandLeftPosition.X;
             double HLPY = HandLeftPosition.Y;
             double HRPX = HandRightPosition.X;
@@ -794,7 +794,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
 
         private void MakeWord(string Let)
         {
-            if (Let != "Def")
+            if (Let != "Not a letter")
             {
                 if (LetterNow != Let && timePassed2 == false)
                 {
@@ -824,7 +824,6 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 LetterNow = Let;
                 LetterFailed = false;
                 tbxrighthand.Text = fullWord;
-                tbxlefthand.Text = Convert.ToString(timePassed2);
                 
             }
             else
@@ -851,6 +850,10 @@ namespace Microsoft.Samples.Kinect.BodyBasics
 
                 var responseString = Encoding.Default.GetString(response);
                 Debug.WriteLine(responseString);
+                lblDataSend.Content = "Data has been send to server";
+                lblDataSend.Background = Brushes.GreenYellow;
+                lblLetter.Background = Brushes.GreenYellow;
+                lblWord.Background = Brushes.GreenYellow;
             }
         }
         /// <summary>
