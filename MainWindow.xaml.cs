@@ -683,49 +683,49 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             if(RightArmPos == 4)
             {
                 if (LeftArmPos == 6)
-                    Letter = "A";
+                    Letter = "G";
                 if (LeftArmPos == 12)
-                    Letter = "K";
+                    Letter = "V";
                 if (LeftArmPos == 10)
-                    Letter = "L";
+                    Letter = "RESET";
                 if (LeftArmPos == 9)
-                    Letter = "M";
+                    Letter = "S";
                 if (LeftArmPos == 7)
                     Letter = "N";
+                if (LeftArmPos == 1)
+                    Letter = "X";
             }
             else
             {
                 if(RightArmPos == 3)
                 {
                     if (LeftArmPos == 6)
-                        Letter = "B";
+                        Letter = "F";
                     if (LeftArmPos == 4)
-                        Letter = "H";
-                    if (LeftArmPos == 1)
-                        Letter = "O";
+                        Letter = "Z";
                     if (LeftArmPos == 12)
-                        Letter = "P";
-                    if (LeftArmPos == 10)
-                        Letter = "Q";
+                        Letter = "J";
                     if (LeftArmPos == 9)
                         Letter = "R";
                     if (LeftArmPos == 7)
-                        Letter = "S";
+                        Letter = "M";
+                    if (LeftArmPos == 10)
+                        Letter = "Y";
+                    if (Left == 1)
+                        Letter = "W";
                 }
                 else
                 {
                     if (RightArmPos == 1)
                     {
                         if (LeftArmPos == 6)
-                            Letter = "C";
-                        if (LeftArmPos == 12)
-                            Letter = "T";
+                            Letter = "E";
                         if (LeftArmPos == 10)
                             Letter = "U";
                         if (LeftArmPos == 9)
-                            Letter = "Y";
+                            Letter = "Q";
                         if (LeftArmPos == 7)
-                            Letter = "RESET";
+                            Letter = "L";
                     }
                     else
                     {
@@ -733,25 +733,25 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                         {
                             if (LeftArmPos == 12)
                                 Letter = "send data";
-                            if (LeftArmPos == 6)
-                                Letter = "D";
-                            if (LeftArmPos == 4)
-                                Letter = "I";
                             if (LeftArmPos == 9)
-                                Letter = "J";
+                                Letter = "P";
                             if (LeftArmPos == 7)
-                                Letter = "V";
+                                Letter = "K";
+                            if (LeftArmPos == 11)
+                                Letter = "T";
                         }
                         else
                         {
                             if(RightArmPos == 6)
                             {
                                 if (LeftArmPos == 10)
-                                    Letter = "E";
+                                    Letter = "C";
                                 if (LeftArmPos == 9)
-                                    Letter = "F";
+                                    Letter = "B";
                                 if (LeftArmPos == 7)
-                                    Letter = "G";
+                                    Letter = "A";
+                                if (LeftArmPos == 12)
+                                    Letter = "D";
                                 if (LeftArmPos == 6)
                                     Letter = " ";
                             }
@@ -760,16 +760,16 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                                 if (RightArmPos == 10)
                                 {
                                     if (LeftArmPos == 9)
-                                        Letter = "W";
-                                    if (LeftArmPos == 7)
-                                        Letter = "X";
+                                        Letter = "O";
                                 }
                                 else
                                 {
                                     if (RightArmPos == 7)
                                     {
                                         if (LeftArmPos == 7)
-                                            Letter = "Z";
+                                            Letter = "H";
+                                        if (LeftArmPos == 12)
+                                            Letter = "I";
                                     }
                                 }
                             }
@@ -846,7 +846,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 values["devID"] = "ImageReader";
                 values["value"] = word;
 
-                var response = client.UploadValues("http://172.17.2.99:3000/api/motionSensor", values);
+                var response = client.UploadValues("http://172.17.2.10:3000/api/motionSensor", values);
 
                 var responseString = Encoding.Default.GetString(response);
                 Debug.WriteLine(responseString);
