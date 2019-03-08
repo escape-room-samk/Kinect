@@ -737,7 +737,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                                 Letter = "P";
                             if (LeftArmPos == 7)
                                 Letter = "K";
-                            if (LeftArmPos == 11)
+                            if (LeftArmPos == 10)
                                 Letter = "T";
                         }
                         else
